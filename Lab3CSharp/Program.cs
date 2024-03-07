@@ -1,10 +1,84 @@
 ﻿namespace Lab3CSharp
 {
+
+    class Trapeze{
+        private int a, b, h;
+        private string c;
+
+        public Trapeze(int a, int b, int h, string c){
+            this.a = a;
+            this.b = b;
+            this.h = h;
+            this.c = c;
+        }
+
+        public double Perimeter(){
+            double rez = a + b + 2 * Math.Sqrt(Math.Pow(h, 2) + Math.Pow((b - a) / 2.0, 2));
+            return (Math.Round(rez, 2));
+        }
+
+        public double Area(){
+            double rez = (a + b) * h / 2;
+            return (Math.Round(rez, 2));
+        }
+
+        public bool isSquare(){
+            return a == b && a == h;
+        }
+
+        public int A{
+            get {return a;}
+            set { a = value;}
+        }
+
+        public int B{
+            get {return b;}
+            set { b = value;}
+        }
+
+        public int H{
+            get {return h;}
+            set { h = value;}
+        }
+
+        public string C{
+            get {return c;}
+        }
+
+        public override string ToString()
+        {
+            return $"Trapeze: side a={a}, side b={b}, height ={h}, color={c}";
+        }
+
+    }
+
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lab 3 ");
+            Console.WriteLine("Lab 3 (variant 7)");
+            Console.Write("Enter the number of task (1 - 2): ");
+            int choice = Int32.Parse(Console.ReadLine());
+            switch (choice){
+                case 1:{
+                    Trapeze[] trapezeArray = new Trapeze[]{
+                        new Trapeze(10, 6, 5, "red"),
+                        new Trapeze(8, 8, 8, "green"),
+                        new Trapeze(12, 9, 7, "blue"),
+                        new Trapeze(4, 4, 4, "yellow")
+                    };
+                    foreach (Trapeze trapeze in trapezeArray){
+                        Console.WriteLine(trapeze);
+                        Console.WriteLine("The perimeter of trapeze: " + trapeze.Perimeter());
+                        Console.WriteLine("The area of trapeze: " + trapeze.Area());
+
+                        if(trapeze.isSquare()){
+                            Console.WriteLine("This trapeze is square!");
+                        }
+                        Console.WriteLine();
+                    }
+                } break;
+            }
         }
     }
 }
