@@ -52,6 +52,47 @@
 
     }
 
+    class Test{
+        public string Subject {get; set;}
+        //public string HardLevel {get; set;}
+        public string StudentSurename {get; set;}
+        public int NumberOfQuestions{ get; set;}
+
+        public virtual void Show(){
+            Console.WriteLine($"Test: subject = {Subject}, student's surname = {StudentSurename}, number of questions = {NumberOfQuestions}");
+        }
+    }
+
+    class Exam : Test{
+        public int HighestScore {get; set;}
+
+        public override void Show(){
+            base.Show();
+            Console.WriteLine($"Exam: the maximum score = {HighestScore}");
+        }
+    }
+
+    class FinalExam : Test{
+        public int NumberOfModules {get; set;}
+
+        public override void Show()
+        {
+            base.Show();
+            Console.WriteLine($"Final exam: number of modules = {NumberOfModules}");
+        }
+    }
+
+    class Trial : Test{
+        public double Lasting {get; set;}
+        public int NumberOfAttempts {get; set;}
+
+        public override void Show()
+        {
+            base.Show();
+            Console.WriteLine($"Trial: time in hours = {Lasting}, number of attempts = {NumberOfAttempts}");
+        }
+    }
+
     internal class Program
     {
         static void Main(string[] args)
@@ -78,6 +119,25 @@
                         Console.WriteLine();
                     }
                 } break;
+                case 2:{
+                    Test[] testsArray = new Test[]{
+                        new Test{Subject = "Math", StudentSurename = "Collins", NumberOfQuestions = 10},
+                        new Exam{Subject = "Physics", StudentSurename = "Traviks", NumberOfQuestions = 15, HighestScore = 40},
+                        new FinalExam{Subject = "English", StudentSurename = "Vessender", NumberOfQuestions = 5, NumberOfModules = 5},
+                        new Trial{Subject = "IT", StudentSurename = "Yetter", NumberOfQuestions = 25, Lasting = 1.5, NumberOfAttempts = 2}
+                    };
+
+                     testsArray = testsArray.OrderBy(t => t.NumberOfQuestions).ToArray();
+
+                    foreach (Test test in testsArray){
+                        test.Show();
+                        Console.WriteLine();
+                    }
+                }break;
+                default:{
+                    Console.WriteLine("Invalid choice!");
+                    break;
+                }
             }
         }
     }
